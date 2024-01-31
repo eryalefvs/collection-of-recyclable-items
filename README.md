@@ -28,7 +28,7 @@ Este é um projeto simples desenvolvido para praticar os conhecimentos básicos 
 1. Clone este repositório:
 
     ```
-    git clone https://github.com/seu-usuario/projeto-coleta-reciclaveis.git
+    git clone https://github.com/eryalefvs/collection-of-recyclable-items.git
     ```
 
 2. Instale as dependências:
