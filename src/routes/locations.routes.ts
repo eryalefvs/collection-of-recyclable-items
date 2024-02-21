@@ -1,5 +1,6 @@
-import { Router } from "express"
+import { Router, json } from "express"
 import multer from "multer"
+import { celebrate, Joi } from "celebrate"
 import knex from "../database/connection"
 import multerConfig from "../config/multer"
 
@@ -7,7 +8,20 @@ const locationsRouter = Router()
 
 const upload = multer(multerConfig)
 
-locationsRouter.post("/", async (request, response):Promise<any> => {
+locationsRouter.post("/", celebrate({
+    body: Joi.object().keys({
+        name: Joi.string().required(),
+        email: Joi.string().required().email(),
+        whatsapp: Joi.string().required(),
+        latitude: Joi.string().required(),
+        longitude: Joi.string().required(),
+        city: Joi.string().required(),
+        uf: Joi.string().required().max(2),
+        items: Joi.string().required(),
+    })
+}, {
+    abortEarly: false
+}) , async (request, response):Promise<any> => {
     const {
         name,
         email,
@@ -83,9 +97,13 @@ locationsRouter.get("/:id", async (request, response) => {
 })
 
 locationsRouter.get("/", async (request, response) => {
-    const { city, uf, items } = request.query
+    const { city, uf, items } = request.query;
 
-    const parsedItems = <any> String(items).split(",").map(item => Number(item.trim()))
+    if(!city && !uf && !items) {
+        return response.json(knex("locations").select("*"))
+    }
+
+    const parsedItems: Number[] = String(items).split(",").map(item => Number(item.trim()))
 
     const locations = await knex("locations")
         .join("locations_items", "locations.id", "=", "locations_items.location_id")
@@ -98,8 +116,20 @@ locationsRouter.get("/", async (request, response) => {
         return response.json(locations)
 })
 
-locationsRouter.put("/:id", async (request, response) => {
+locationsRouter.put("/:id", upload.single("image"), async (request, response) => {
     const { id } = request.params
+
+    const image = request.file?.filename
+
+    const location = await knex("locations").where("id", id).first()
+
+    if(!location) {
+        return response.status(400).json({message: "Location not found."})
+    }
+
+    await knex("locations").update({ ...location, image }).where("id", id)
+
+    return response.json({ ...location, image})
 })
 
 export default locationsRouter
