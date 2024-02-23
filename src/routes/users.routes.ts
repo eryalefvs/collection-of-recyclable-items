@@ -1,4 +1,5 @@
 import { Router } from "express"
+import { hash } from "bcryptjs"
 import knex from "knex"
 
 const userRouter = Router()
@@ -13,7 +14,13 @@ userRouter.get("/", async (request, response) => {
 userRouter.post("/", async (request, response) => {
     const { name, email, password } = request.body
 
-    const user = { name, email, password }
+    const passwordHashed = await hash(password, 8)
+
+    const user = { 
+        name,
+        email, 
+        password: passwordHashed 
+    }
 
     const newIds = await knex("users").insert(user)
 
