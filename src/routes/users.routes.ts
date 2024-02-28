@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { hash } from "bcryptjs"
-import knex from "knex"
+import knex from "../database/connection"
 
 const userRouter = Router()
 
@@ -17,7 +17,6 @@ userRouter.post("/", async (request, response) => {
     const passwordHashed = await hash(password, 8)
 
     const user = { 
-        name,
         email, 
         password: passwordHashed 
     }

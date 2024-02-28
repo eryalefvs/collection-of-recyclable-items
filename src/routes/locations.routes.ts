@@ -3,21 +3,24 @@ import multer from "multer"
 import { celebrate, Joi } from "celebrate"
 import knex from "../database/connection"
 import multerConfig from "../config/multer"
+import isAuthenticated from "../middlewares/isAuthenticated"
 
 const locationsRouter = Router()
 
 const upload = multer(multerConfig)
+
+locationsRouter.use(isAuthenticated)
 
 locationsRouter.post("/", celebrate({
     body: Joi.object().keys({
         name: Joi.string().required(),
         email: Joi.string().required().email(),
         whatsapp: Joi.string().required(),
-        latitude: Joi.string().required(),
-        longitude: Joi.string().required(),
+        latitude: Joi.number().required(),
+        longitude: Joi.number().required(),
         city: Joi.string().required(),
         uf: Joi.string().required().max(2),
-        items: Joi.string().required(),
+        items: Joi.array().required(),
     })
 }, {
     abortEarly: false
@@ -100,7 +103,10 @@ locationsRouter.get("/", async (request, response) => {
     const { city, uf, items } = request.query;
 
     if(!city && !uf && !items) {
-        return response.json(knex("locations").select("*"))
+
+        const locations = await knex("locations").select("*")
+
+        return response.json(locations)
     }
 
     const parsedItems: Number[] = String(items).split(",").map(item => Number(item.trim()))

@@ -1,7 +1,8 @@
 import { Router } from "express"
 import { compare } from "bcryptjs"
-import knex from "knex"
+import knex from "../database/connection"
 import { sign } from "jsonwebtoken"
+import authConfig from "../config/auth"
 
 const sessionsRoute = Router()
 
@@ -20,9 +21,9 @@ sessionsRoute.post("/", async (request, response) => {
         return response.status(400).json({ message: "Credentials not found!" })
     }
 
-    const token = sign({}, "685f802d2ffcd5e9f2f2635456f3bc66", {
+    const token = sign({}, authConfig.jwt.secret, {
         subject: String(user.id),
-        expiresIn: "1d"
+        expiresIn: authConfig.jwt.expiresIn
     })
 
     return response.json({ user, token })
