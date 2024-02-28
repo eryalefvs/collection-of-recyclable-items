@@ -1,64 +1,65 @@
-# Projeto de Coleta de Materiais Recicláveis
+# Collection of Recyclable Items Project
 
-Este é um projeto simples desenvolvido para praticar os conhecimentos básicos em Node.js, TypeScript e integração com banco de dados. O objetivo deste projeto é criar um sistema de gerenciamento de locais de coleta de materiais recicláveis.
+This is a simple project developed to practice basic knowledge in Node.js, TypeScript, and database integration. The goal of this project is to create a management system for recyclable materials collection points.
 
-## Funcionalidades
+## Features
 
-- **Cadastro de Locais de Coleta**: Permite cadastrar novos locais de coleta de materiais recicláveis, incluindo informações como nome, endereço e tipos de materiais aceitos.
+- **Collection Point Registration**: Allows registering new recyclable materials collection points, including information such as name, address, and accepted materials types.
 
-- **Consulta de Locais de Coleta**: Permite consultar os locais de coleta cadastrados, filtrando por diferentes critérios, como tipo de material aceito ou localização.
+- **Collection Points Query**: Allows querying registered collection points, filtering by different criteria, such as accepted material type or location.
 
-## Tecnologias Utilizadas
+## Technologies Used
 
-- **Node.js**: Plataforma de desenvolvimento JavaScript que permite a construção de aplicações server-side.
+- **Node.js**: JavaScript development platform that allows building server-side applications.
+  
+- **TypeScript**: JavaScript superset that adds optional static typing and other features to JavaScript.
+  
+- **SQLite**: Lightweight relational database that uses a file as its database.
+  
+- **Knex.js**: SQL query builder library for Node.js, used as an Object-Relational Mapping (ORM) to facilitate interaction with the SQLite database.
+  
+- **JWT (JSON Web Token)**: A compact, URL-safe means of representing claims to be transferred between two parties. Used for authentication in the project.
 
-- **TypeScript**: Superset do JavaScript que adiciona tipagem estática opcional e outras funcionalidades ao JavaScript.
+## Prerequisites
 
-- **SQLite**: Banco de dados relacional leve que utiliza um arquivo como sua base de dados.
+- Node.js and npm installed on the local machine.
+- Basic knowledge of TypeScript and SQL.
 
-- **Knex.js**: Biblioteca SQL query builder para Node.js, utilizada como ORM (Object-Relational Mapping) para facilitar a interação com o banco de dados SQLite.
+## Installation
 
-## Pré-requisitos
-
-- Node.js e npm instalados na máquina local.
-- Conhecimentos básicos em TypeScript e SQL.
-
-## Instalação
-
-1. Clone este repositório:
+1. Clone this repository:
 
     ```
     git clone https://github.com/eryalefvs/collection-of-recyclable-items.git
     ```
 
-2. Instale as dependências:
+2. Install dependencies:
 
     ```
     npm install
     ```
 
-3. Execute as migrações e as seeds do banco de dados:
+3. Run database migrations and seeds:
 
     ```
     npm run knex:migrate
     npm run knex:seed
     ```
 
-4. Inicie o servidor:
+4. Start the server:
 
     ```
     npm run dev
     ```
 
-## Uso
+## Usage
 
-Após iniciar o servidor, você pode acessar a aplicação em `http://localhost:3333`. A partir daí, você poderá cadastrar novos locais de coleta, consultar os locais cadastrados e realizar diversas operações de CRUD (Create, Read, Update, Delete). Para isso, observe os endpoints no código e utilize o postman ou insomnia para enviar as requisições.
+After starting the server, you can access the application at `http://localhost:3333`. From there, you can log in, register new collection points, query registered points, and perform various CRUD (Create, Read, Update, Delete) operations. To do this, observe the endpoints in the code and use Postman or Insomnia to send requests.
 
-## Contribuição
+## Contribution
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir problemas (issues) para relatar bugs ou propor novas funcionalidades. Se deseja contribuir diretamente, faça um fork do repositório, faça as alterações e envie um pull request.
+Contributions are welcome! Feel free to open issues to report bugs or propose new features. If you wish to contribute directly, fork the repository, make the changes, and submit a pull request.
 
-## Licença
+## License
 
-Este projeto está licenciado sob a [MIT License](https://opensource.org/licenses/MIT).
-
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
